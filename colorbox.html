@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .grid2X2 {
+        display: grid;
+        grid-template-columns: 2fr 2fr;
+        grid-template-rows: 300px 300px;
+    }
+    
+    .box {
+        border: 2px solid black;
+    }
+    
+    .grid3X3 {
+        display: grid;
+        grid-template-columns: 2fr 2fr 2fr;
+        grid-template-rows: 300px 300px 300px;
+    }
+    
+    .grid4X4 {
+        display: grid;
+        grid-template-columns: 2fr 2fr 2fr 2fr;
+        grid-template-rows: 300px 300px 300px 300px;
+    }
+</style>
+
+<body>
+    <div class="container"></div>
+    <!-- <div class="container grid3X3"></div>
+    <div class="container grid4X4"></div>  -->
+
+    <script>
+        window.onload = function() {
+            let level = 2;
+            const map = new Map();
+            map.set(1, "grid2X2")
+            map.set(2, "grid3X3")
+            map.set(3, "grid4X4")
+
+            function getBox() {
+                return "<div class='box'></div>" //or  `<div class="box"></div>`
+            }
+
+            function draw(numBoxes) {
+                document.querySelector(".container").classList.add(map.get(level))
+                let html = ""
+                for (let i = 0; i < numBoxes; i++) {
+                    html += getBox()
+                }
+                document.querySelector(".container").innerHTML = html
+            }
+            draw((level + 1) ** 2)
+        }
+    </script>
+
+</body>
+
+</html>
