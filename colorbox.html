@@ -29,6 +29,10 @@
         grid-template-columns: 2fr 2fr 2fr 2fr;
         grid-template-rows: 300px 300px 300px 300px;
     }
+    
+    .red {
+        background-color: red;
+    }
 </style>
 
 <body>
@@ -38,14 +42,14 @@
 
     <script>
         window.onload = function() {
-            let level = 1;
+            let level = 2;
             const map = new Map();
             map.set(1, "grid2X2")
             map.set(2, "grid3X3")
             map.set(3, "grid4X4")
 
-            function getBox(id) {
-                return `<div class="box" id="${id}"></div>` //or  `<div class="box"></div>`
+            function getBox(box) {
+                return `<div  id="${box.id}" class=" box ${box.color? box.color:""}"></div>` //or  `<div class="box"></div>`
             }
 
             // function draw(numBoxes) {
@@ -82,18 +86,38 @@
                     boxes[i] = makebox(i);
                 }
             }
-            loadBoxes((level + 1) ** 2)
+            // loadBoxes((level + 1) ** 2)
 
 
             function draw() {
                 html = "";
                 for (let box of boxes) {
-                    html += getBox(box.id)
+                    html += getBox(box)
                     document.querySelector(".container").classList.add(map.get(level))
                 }
                 document.querySelector(".container").innerHTML = html
             }
-            draw()
+            // draw()
+
+            function colorBoxes() {
+                for (let box of boxes) {
+                    if (applyColor())
+                        box.setcolor("red")
+
+                }
+            }
+
+            function applyColor() {
+                return Math.floor(Math.random() * 10) % 2;
+            }
+
+            function start() {
+                loadBoxes((level + 1) ** 2)
+                colorBoxes()
+                draw()
+
+            }
+            start()
 
         }
     </script>
