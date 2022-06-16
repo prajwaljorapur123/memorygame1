@@ -38,25 +38,63 @@
 
     <script>
         window.onload = function() {
-            let level = 2;
+            let level = 1;
             const map = new Map();
             map.set(1, "grid2X2")
             map.set(2, "grid3X3")
             map.set(3, "grid4X4")
 
-            function getBox() {
-                return "<div class='box'></div>" //or  `<div class="box"></div>`
+            function getBox(id) {
+                return `<div class="box" id="${id}"></div>` //or  `<div class="box"></div>`
             }
 
-            function draw(numBoxes) {
-                document.querySelector(".container").classList.add(map.get(level))
-                let html = ""
+            // function draw(numBoxes) {
+            //     document.querySelector(".container").classList.add(map.get(level))
+            //     let html = ""
+            //     for (let i = 0; i < numBoxes; i++) {
+            //         html += getBox()
+            //     }
+            //     document.querySelector(".container").innerHTML = html
+            // }
+            // loadBoxes(4)
+            // console.log(boxes)
+            // draw((level + 1) ** 2)
+
+
+            function makebox(id) {
+                return {
+                    closed: true,
+                    id,
+                    setcolor(color) {
+                        this.color = color
+                    },
+                    open() {
+                        this.closed = false;
+                    }
+                }
+            }
+
+
+            const boxes = []
+
+            function loadBoxes(numBoxes) {
                 for (let i = 0; i < numBoxes; i++) {
-                    html += getBox()
+                    boxes[i] = makebox(i);
+                }
+            }
+            loadBoxes((level + 1) ** 2)
+
+
+            function draw() {
+                html = "";
+                for (let box of boxes) {
+                    html += getBox(box.id)
+                    document.querySelector(".container").classList.add(map.get(level))
                 }
                 document.querySelector(".container").innerHTML = html
             }
-            draw((level + 1) ** 2)
+            draw()
+
         }
     </script>
 
