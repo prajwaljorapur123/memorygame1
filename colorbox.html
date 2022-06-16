@@ -105,10 +105,20 @@
                         box.setcolor("red")
 
                 }
+                if (!colored())
+                    colorBoxes()
             }
 
             function applyColor() {
                 return Math.floor(Math.random() * 10) % 2;
+            }
+
+            function colored() {
+                for (let box of boxes) {
+                    if (box.color)
+                        return true
+                }
+                return false
             }
 
             function start() {
@@ -118,6 +128,7 @@
 
             }
             start()
+
 
         }
     </script>
