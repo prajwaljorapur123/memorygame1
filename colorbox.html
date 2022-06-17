@@ -69,13 +69,13 @@
 
             function makebox(id) {
                 return {
-                    closed: true,
+                    selected: false,
                     id,
                     setcolor(color) {
                         this.color = color
                     },
-                    open() {
-                        this.closed = false;
+                    select() {
+                        this.selected = true;
                     }
                 }
             }
@@ -136,14 +136,44 @@
                 return false
             }
 
+
+
             function toggleColor(duration) {
                 setTimeout(function() {
                     let redBoxes = document.querySelectorAll(".red")
                     for (let box of redBoxes) {
                         box.classList.remove("red")
                     }
+                    setupClick()
                 }, duration)
             }
+
+
+
+            function setupClick() {
+                let divs = document.querySelectorAll(".box")
+                for (let box of divs) {
+                    box.onclick = function(e) {
+                        const index = e.target.id
+                        const selectedBox = boxes[index]
+                        if (!selectedBox.selected) {
+                            if (selectedBox.color) {
+                                e.target.classList.add(selectedBox.color)
+                            } else {
+                                alert("you lose")
+                                start()
+                            }
+                            selectedBox.select()
+
+
+                        }
+
+                    }
+
+                }
+            }
+
+
 
             function start() {
                 loadBoxes((level + 1) ** 2)
@@ -151,8 +181,12 @@
                 draw()
                 toggleColor(2000)
 
+
             }
             start()
+
+
+
 
 
         }
