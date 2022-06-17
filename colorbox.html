@@ -48,6 +48,8 @@
             map.set(2, "grid3X3")
             map.set(3, "grid4X4")
 
+
+
             function getBox(box) {
                 return `<div  id="${box.id}" class=" box ${box.color? box.color:""}"></div>` //or  `<div class="box"></div>`
             }
@@ -79,6 +81,8 @@
             }
 
 
+
+
             const boxes = []
 
             function loadBoxes(numBoxes) {
@@ -87,6 +91,8 @@
                 }
             }
             // loadBoxes((level + 1) ** 2)
+
+
 
 
             function draw() {
@@ -99,6 +105,9 @@
             }
             // draw()
 
+
+
+
             function colorBoxes() {
                 for (let box of boxes) {
                     if (applyColor())
@@ -109,9 +118,15 @@
                     colorBoxes()
             }
 
+
+
+
             function applyColor() {
                 return Math.floor(Math.random() * 10) % 2;
             }
+
+
+
 
             function colored() {
                 for (let box of boxes) {
@@ -121,10 +136,20 @@
                 return false
             }
 
+            function toggleColor(duration) {
+                setTimeout(function() {
+                    let redBoxes = document.querySelectorAll(".red")
+                    for (let box of redBoxes) {
+                        box.classList.remove("red")
+                    }
+                }, duration)
+            }
+
             function start() {
                 loadBoxes((level + 1) ** 2)
                 colorBoxes()
                 draw()
+                toggleColor(2000)
 
             }
             start()
